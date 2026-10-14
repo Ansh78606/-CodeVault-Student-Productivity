@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CodeVault student productivity dashboard">
+  <title>CodeVault — Student Productivity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">CV</span><span>CodeVault<small>STUDENT WORKSPACE</small></span></a>
+      <div class="nav-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="overview"><span>▦</span> Overview</button>
+      <button class="nav-item" data-view="tasks"><span>✓</span> My Tasks <span class="nav-count" id="navTaskCount">0</span></button>
+      <button class="nav-item" data-view="analytics"><span>◫</span> Analytics</button>
+      <div class="sidebar-bottom">
+        <div class="tip-card"><span class="tip-icon">✦</span><strong>Small steps add up.</strong><p>Focus on progress, not perfection.</p></div>
+        <div class="profile"><div class="avatar">ST</div><div><strong>Student Workspace</strong><small>Personal account</small></div></div>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow" id="todayLabel">YOUR WORKSPACE</p><h1 id="pageTitle">Overview</h1></div>
+        <button class="primary-btn" id="openTaskModal"><span>＋</span> Add task</button>
+      </header>
+      <section class="welcome-row">
+        <div><h2 id="greeting">Make today count.</h2><p>One focused task at a time. You’ve got this.</p></div>
+        <div class="date-pill" id="datePill">TODAY</div>
+      </section>
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card"><div class="stat-top"><span>Total tasks</span><span class="stat-icon purple">▤</span></div><strong id="totalTasks">0</strong><small>All your tracked tasks</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon green">✓</span></div><strong id="completedTasks">0</strong><small>Tasks finished</small></article>
+        <article class="stat-card"><div class="stat-top"><span>In progress</span><span class="stat-icon blue">◷</span></div><strong id="inProgressTasks">0</strong><small>Still on your list</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Completion rate</span><span class="stat-icon orange">↗</span></div><strong id="completionRate">0%</strong><small>Completed / total</small></article>
+      </section>
+      <section class="content-grid">
+        <article class="panel task-panel">
+          <div class="panel-heading"><div><h3 id="taskSectionTitle">Your tasks</h3><p>Keep your priorities clear.</p></div><button class="text-btn" id="viewAllBtn">View all →</button></div>
+          <div class="filters"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search tasks..."></label><select id="statusFilter" aria-label="Filter by status"><option value="all">All statuses</option><option value="active">Active</option><option value="completed">Completed</option></select></div>
+          <div id="taskList" class="task-list"></div>
+          <div id="emptyState" class="empty-state"><div class="empty-art">✓</div><h3>No tasks yet</h3><p>Add your first task to start building momentum.</p><button class="primary-btn" id="emptyAddBtn">＋ Create a task</button></div>
+        </article>
+        <article class="panel analytics-panel">
+          <div class="panel-heading"><div><h3>Productivity</h3><p>Your current task breakdown.</p></div><span class="chart-badge">LIVE</span></div>
+          <div class="donut-wrap"><div class="donut" id="donutChart"><div class="donut-center"><strong id="donutPercent">0%</strong><small>completed</small></div></div></div>
+          <div class="legend"><div><span class="legend-dot purple-dot"></span><span>Completed</span><strong id="legendCompleted">0</strong></div><div><span class="legend-dot gray-dot"></span><span>Remaining</span><strong id="legendRemaining">0</strong></div></div>
+          <div class="insight-box"><span>✦</span><div><strong>Keep your streak going</strong><p>Finish one important task before moving to the next.</p></div></div>
+        </article>
+      </section>
+      <footer>CodeVault <span>•</span> Built for focused learning <span class="footer-right">HTML · CSS · JavaScript · C</span></footer>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="taskModal" aria-hidden="true">
+    <form class="modal" id="taskForm">
+      <div class="modal-heading"><div><p class="eyebrow">TASK MANAGER</p><h2 id="modalTitle">Create a task</h2></div><button type="button" class="close-btn" id="closeModal" aria-label="Close">×</button></div>
+      <input type="hidden" id="taskId">
+      <label>Task title<input id="taskTitle" maxlength="100" required placeholder="e.g. Complete DSA assignment"></label>
+      <label>Description <span class="optional">(optional)</span><textarea id="taskDescription" maxlength="300" rows="3" placeholder="Add a few details..."></textarea></label>
+      <div class="form-row"><label>Priority<select id="taskPriority"><option value="medium">Medium</option><option value="high">High</option><option value="low">Low</option></select></label><label>Due date<input id="taskDue" type="date"></label></div>
+      <p class="form-error" id="formError" role="alert"></p>
+      <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelModal">Cancel</button><button type="submit" class="primary-btn">Save task</button></div>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
